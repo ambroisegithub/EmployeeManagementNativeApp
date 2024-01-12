@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -7,246 +8,201 @@ import {
   Pressable,
   Alert,
 } from "react-native";
-import React, { useState } from "react";
 import axios from "axios";
 
-const adddetails = () => {
-  const [name, setName] = useState("");
+const AddDetails = () => {
   const [employeeId, setEmployeeId] = useState("");
-  const [dob, setDob] = useState("");
-  const [mobileNo, setMobileNo] = useState("");
-  const [joiningDate, setJoiningDate] = useState("");
-  const [salary, setSalary] = useState("");
-  const [address, setAddress] = useState("");
+  const [employeeName, setEmployeeName] = useState("");
   const [designation, setDesignation] = useState("");
-  const handleRegister = () => {
-    const employeeData = {
-      employeeName: name,
-      employeeId: employeeId,
-      designation: designation,
-      phoneNumber: mobileNo,
-      dateOfBirth: dob,
-      joiningDate: joiningDate,
-      activeEmployee: true,
-      salary: salary,
-      address: address,
-    };
+  const [joiningDate, setJoiningDate] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [activeEmployee, setActiveEmployee] = useState(true);
+  const [salary, setSalary] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [address, setAddress] = useState("");
 
-    axios
-      .post("http://localhost:8000/addEmployee", employeeData)
-      .then((response) => {
-        Alert.alert(
-          "Registration Successful",
-          "You have been registered successfully"
-        );
-        setName("");
-        setEmployeeId("");
-        setDob("");
-        setMobileNo("");
-        setSalary("");
-        setAddress("");
-        setJoiningDate("");
-        setDesignation("");
-      })
-      .catch((error) => {
-        Alert.alert(
-          "Registration Fail",
-          "An error occurred during registration"
-        );
-        console.log("register failed", error);
-      });
+  const addEmployee = async () => {
+    try {
+      const response = await axios.post(
+        "https://nativeemployeeapp.onrender.com/addEmployee",
+        {
+          employeeId,
+          employeeName,
+          designation,
+          joiningDate,
+          dateOfBirth,
+          activeEmployee,
+          salary,
+          phoneNumber,
+          address,
+        }
+      );
+
+      const { message, employee } = response.data;
+      console.log(message);
+      console.log(employee);
+      // Reset the form
+      setEmployeeId("");
+      setEmployeeName("");
+      setDesignation("");
+      setJoiningDate("");
+      setDateOfBirth("");
+      setActiveEmployee(true);
+      setSalary("");
+      setPhoneNumber("");
+      setAddress("");
+    } catch (error) {
+      console.error("Error adding employee", error);
+      Alert.alert("Failed to add an employee");
+    }
   };
+
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "white" }}>
-      <View style={{ padding: 10 }}>
-        <Text style={{ fontSize: 17, fontWeight: "bold" }}>
-          Add a New Employee
-        </Text>
+      <View style={styles.container}>
+        <Text style={styles.title}>Add a New Employee</Text>
 
-        <TextInput
-          style={{
-            padding: 10,
-            borderColor: "#D0D0D0",
-            borderWidth: 1,
-            marginTop: 10,
-            borderRadius: 5,
-          }}
-          placeholder="India"
-          placeholderTextColor={"black"}
-        />
-
-        <View style={{ marginVertical: 10 }}>
-          <Text style={{ fontSize: 17, fontWeight: "bold" }}>
-            Full Name (First and last Name)
-          </Text>
-          <TextInput
-            value={name}
-            onChangeText={(text) => setName(text)}
-            style={{
-              padding: 10,
-              borderColor: "#D0D0D0",
-              borderWidth: 1,
-              marginTop: 10,
-              borderRadius: 5,
-            }}
-            placeholder="enter your name"
-            placeholderTextColor={"black"}
-          />
-        </View>
-
-        <View>
-          <Text style={{ fontSize: 17, fontWeight: "bold" }}>Employee Id</Text>
+        <View style={styles.formField}>
+          <Text style={styles.label}>Employee Id</Text>
           <TextInput
             value={employeeId}
-            onChangeText={(text) => setEmployeeId(text)}
-            style={{
-              padding: 10,
-              borderColor: "#D0D0D0",
-              borderWidth: 1,
-              marginTop: 10,
-              borderRadius: 5,
-            }}
+            onChangeText={setEmployeeId}
+            style={styles.textInput}
             placeholder="Employee Id"
-            placeholderTextColor={"black"}
+            placeholderTextColor="black"
           />
         </View>
 
-        <View style={{ marginVertical: 10 }}>
-          <Text style={{ fontSize: 17, fontWeight: "bold" }}>Designation</Text>
+        <View style={styles.formField}>
+          <Text style={styles.label}>Full Name (First and last Name)</Text>
+          <TextInput
+            value={employeeName}
+            onChangeText={setEmployeeName}
+            style={styles.textInput}
+            placeholder="Enter your name"
+            placeholderTextColor="black"
+          />
+        </View>
+
+        <View style={styles.formField}>
+          <Text style={styles.label}>Designation</Text>
           <TextInput
             value={designation}
-            onChangeText={(text) => setDesignation(text)}
-            style={{
-              padding: 10,
-              borderColor: "#D0D0D0",
-              borderWidth: 1,
-              marginTop: 10,
-              borderRadius: 5,
-            }}
+            onChangeText={setDesignation}
+            style={styles.textInput}
             placeholder="Designation"
-            placeholderTextColor={"black"}
+            placeholderTextColor="black"
           />
         </View>
 
-        <View>
-          <Text style={{ fontSize: 17, fontWeight: "bold" }}>
-            Mobile Number
-          </Text>
-          <TextInput
-            value={mobileNo}
-            onChangeText={(text) => setMobileNo(text)}
-            style={{
-              padding: 10,
-              borderColor: "#D0D0D0",
-              borderWidth: 1,
-              marginTop: 10,
-              borderRadius: 5,
-            }}
-            placeholder="Mobile No"
-            placeholderTextColor={"black"}
-          />
-        </View>
-
-        <View style={{ marginVertical: 10 }}>
-          <Text style={{ fontSize: 17, fontWeight: "bold" }}>
-            Date of Birth
-          </Text>
-          <TextInput
-            value={dob}
-            onChangeText={(text) => setDob(text)}
-            style={{
-              padding: 10,
-              borderColor: "#D0D0D0",
-              borderWidth: 1,
-              marginTop: 10,
-              borderRadius: 5,
-            }}
-            placeholder="Enter Date of Birth"
-            placeholderTextColor={"black"}
-          />
-        </View>
-
-        <View>
-          <Text style={{ fontSize: 17, fontWeight: "bold" }}>Joining Date</Text>
+        <View style={styles.formField}>
+          <Text style={styles.label}>Joining Date</Text>
           <TextInput
             value={joiningDate}
-            onChangeText={(text) => setJoiningDate(text)}
-            style={{
-              padding: 10,
-              borderColor: "#D0D0D0",
-              borderWidth: 1,
-              marginTop: 10,
-              borderRadius: 5,
-            }}
+            onChangeText={setJoiningDate}
+            style={styles.textInput}
             placeholder="Joining Date"
-            placeholderTextColor={"black"}
+            placeholderTextColor="black"
           />
         </View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginTop: 10,
-          }}
-        >
-          <Text>Active Employee</Text>
-          <Text>True</Text>
+
+        <View style={styles.formField}>
+          <Text style={styles.label}>Date of Birth</Text>
+          <TextInput
+            value={dateOfBirth}
+            onChangeText={setDateOfBirth}
+            style={styles.textInput}
+            placeholder="Enter Date of Birth"
+            placeholderTextColor="black"
+          />
         </View>
-        <View style={{ marginVertical: 10 }}>
-          <Text style={{ fontSize: 17, fontWeight: "bold" }}>Salary</Text>
+
+        <View style={styles.formField}>
+          <View style={styles.checkboxContainer}>
+            <Text style={styles.label}>Active Employee</Text>
+            <Text>{activeEmployee ? "True" : "False"}</Text>
+          </View>
+        </View>
+
+        <View style={styles.formField}>
+          <Text style={styles.label}>Salary</Text>
           <TextInput
             value={salary}
-            onChangeText={(text) => setSalary(text)}
-            style={{
-              padding: 10,
-              borderColor: "#D0D0D0",
-              borderWidth: 1,
-              marginTop: 10,
-              borderRadius: 5,
-            }}
-            placeholder="Enter Salary"
-            placeholderTextColor={"black"}
+            onChangeText={setSalary}
+            style={styles.textInput}
+            placeholder="Salary"
+            placeholderTextColor="black"
           />
         </View>
 
-        <View>
-          <Text style={{ fontSize: 17, fontWeight: "bold" }}>Address</Text>
+        <View style={styles.formField}>
+          <Text style={styles.label}>Phone Number</Text>
+          <TextInput
+            value={phoneNumber}
+            onChangeText={setPhoneNumber}
+            style={styles.textInput}
+            placeholder="Phone Number"
+            placeholderTextColor="black"
+          />
+        </View>
+
+        <View style={styles.formField}>
+          <Text style={styles.label}>Address</Text>
           <TextInput
             value={address}
-            onChangeText={(text) => setAddress(text)}
-            style={{
-              padding: 10,
-              borderColor: "#D0D0D0",
-              borderWidth: 1,
-              marginTop: 10,
-              borderRadius: 5,
-            }}
-            placeholder="Enter Address"
-            placeholderTextColor={"black"}
+            onChangeText={setAddress}
+            style={styles.textInput}
+            placeholder="Address"
+            placeholderTextColor="black"
           />
         </View>
 
-        <Pressable
-          onPress={handleRegister}
-          style={{
-            backgroundColor: "#ABCABA",
-            padding: 10,
-            marginTop: 20,
-            justifyContent: "center",
-            alignItems: "center",
-            borderRadius: 5,
-          }}
-        >
-          <Text style={{ fontWeight: "bold", color: "white" }}>
-            Add Employee
-          </Text>
+        <Pressable style={styles.addButton} onPress={addEmployee}>
+          <Text style={styles.buttonText}>Add Employee</Text>
         </Pressable>
       </View>
     </ScrollView>
   );
 };
 
-export default adddetails;
+const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+  },
+  title: {
+    fontSize: 17,
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
+  formField: {
+    marginBottom: 15,
+  },
+  label: {
+    fontSize: 13,
+    marginBottom: 5,
+  },
+  textInput: {
+    borderWidth: 1,
+    borderColor: "gray",
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+  },
+  checkboxContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  addButton: {
+    backgroundColor: "blue",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 15,
+  },
+});
 
-const styles = StyleSheet.create({});
+export default AddDetails;

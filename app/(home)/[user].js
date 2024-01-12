@@ -41,7 +41,7 @@ const user = () => {
         status: attendanceStatus,
       };
       const response = await axios.post(
-        "http://localhost:8000/attendance",
+        "https://nativeemployeeapp.onrender.com/attendance",
         attendanceData
       );
 

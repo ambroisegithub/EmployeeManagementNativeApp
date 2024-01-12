@@ -27,7 +27,9 @@ const markattendance = () => {
   useEffect(() => {
     const fetchEmployeeData = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/employees");
+        const response = await axios.get(
+          "https://nativeemployeeapp.onrender.com/employees"
+        );
         setEmployees(response.data);
       } catch (error) {
         console.log("error fetching employee data", error);
@@ -38,7 +40,7 @@ const markattendance = () => {
   const [attendance, setAttendance] = useState([]);
   const fetchAttendanceData = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/attendance`, {
+      const response = await axios.get(`https://nativeemployeeapp.onrender.com/attendance`, {
         params: {
           date: currentDate.format("MMMM D, YYYY"),
         },
@@ -127,7 +129,7 @@ const markattendance = () => {
                   {item?.employeeName?.charAt(0)}
                 </Text>
               </View>
-              <View style={{flex:1}}>
+              <View style={{ flex: 1 }}>
                 <Text style={{ fontSize: 16, fontWeight: "bold" }}>
                   {item?.employeeName}
                 </Text>

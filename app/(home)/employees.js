@@ -13,7 +13,7 @@ const employees = () => {
   useEffect(() => {
     const fetchEmployeeData = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/employees");
+        const response = await axios.get("https://nativeemployeeapp.onrender.com/employees");
         setEmployees(response.data);
       } catch (error) {
         console.log("error fetching employee data", error);

@@ -25,7 +25,7 @@ const summary = () => {
   const fetchAttendanceReport = async () => {
     try {
       const respone = await axios.get(
-        `http://localhost:8000/attendance-report-all-employees`,
+        `https://nativeemployeeapp.onrender.com/attendance-report-all-employees`,
         {
           params: {
             month: 11,
