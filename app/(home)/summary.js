@@ -28,8 +28,8 @@ const summary = () => {
         `https://nativeemployeeapp.onrender.com/attendance-report-all-employees`,
         {
           params: {
-            month: 11,
-            year: 2023,
+            month: 1,
+            year: 2024,
           },
         }
       );
@@ -73,7 +73,9 @@ const summary = () => {
       <View style={{ marginHorizontal: 12 }}>
         {attendanceData?.map((item, index) => (
           <View key={index} style={{ marginVertical: 10 }}>
-            <View style={{flexDirection:"row",alignItems:"center",gap:10}}>
+            <View
+              style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
+            >
               <View
                 style={{
                   width: 50,
@@ -89,7 +91,7 @@ const summary = () => {
                   {item?.name?.charAt(0)}
                 </Text>
               </View>
-              <View style={{flex:1}}>
+              <View style={{ flex: 1 }}>
                 <Text style={{ fontSize: 16, fontWeight: "bold" }}>
                   {item?.name}
                 </Text>
@@ -99,23 +101,31 @@ const summary = () => {
               </View>
             </View>
 
-            <View style={{marginTop:15,margin:5,padding:5,backgroundColor:"#A1FFCE",borderRadius:5}}>
-                <DataTable>
-                    <DataTable.Header>
-                        <DataTable.Title>P</DataTable.Title>
-                        <DataTable.Title>A</DataTable.Title>
-                        <DataTable.Title>HD</DataTable.Title>
-                        <DataTable.Title>H</DataTable.Title>
-                        <DataTable.Title>NW</DataTable.Title>
-                    </DataTable.Header>
-                    <DataTable.Row>
-                        <DataTable.Cell>{item?.present}</DataTable.Cell>
-                        <DataTable.Cell>{item?.absent}</DataTable.Cell>
-                        <DataTable.Cell>{item?.halfday}</DataTable.Cell>
-                        <DataTable.Cell>1</DataTable.Cell>
-                        <DataTable.Cell>8</DataTable.Cell>
-                    </DataTable.Row>
-                </DataTable>
+            <View
+              style={{
+                marginTop: 15,
+                margin: 5,
+                padding: 5,
+                backgroundColor: "#A1FFCE",
+                borderRadius: 5,
+              }}
+            >
+              <DataTable>
+                <DataTable.Header>
+                  <DataTable.Title>P</DataTable.Title>
+                  <DataTable.Title>A</DataTable.Title>
+                  <DataTable.Title>HD</DataTable.Title>
+                  <DataTable.Title>H</DataTable.Title>
+                  <DataTable.Title>NW</DataTable.Title>
+                </DataTable.Header>
+                <DataTable.Row>
+                  <DataTable.Cell>{item?.present}</DataTable.Cell>
+                  <DataTable.Cell>{item?.absent}</DataTable.Cell>
+                  <DataTable.Cell>{item?.halfday}</DataTable.Cell>
+                  <DataTable.Cell>1</DataTable.Cell>
+                  <DataTable.Cell>8</DataTable.Cell>
+                </DataTable.Row>
+              </DataTable>
             </View>
           </View>
         ))}

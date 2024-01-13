@@ -1,46 +1,69 @@
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { AntDesign } from "@expo/vector-icons";
 
-const SearchResults = ({ data, input, setInput }) => {
-  return (
-    <View style={{ padding: 10 }}>
-      <FlatList
-        data={data}
-        renderItem={({ item }) => {
-          if (item?.employeeName.toLowerCase().includes(input.toLowerCase())) {
-            return (
-              <View
-                style={{ marginVertical: 10, gap: 10, flexDirection: "row" }}
-              >
-                <View
-                  style={{
-                    width: 50,
-                    height: 50,
-                    borderRadius: 8,
-                    padding: 10,
-                    backgroundColor: "#4b6cb7",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Text style={{color:"white",fontSize:16}}>{item?.employeeName?.charAt(0)}</Text>
-                </View>
-
-                <View>
-                  <Text style={{fontSize:16,fontWeight:"bold"}}>{item?.employeeName}</Text>
-                  <Text style={{marginTop:5,color:"gray"}}>
-                    {item?.designation} ({item?.employeeId})
-                  </Text>
-                </View>
-              </View>
-            );
-          }
-        }}
-      />
+const SearchResults = ({
+  data,
+  input,
+  handleDeleteEmployee,
+  handleUpdateEmployee,
+}) => {
+  const renderEmployee = ({ item }) => (
+    <View style={styles.employee}>
+      <Text style={styles.name}>{item.employeeName}</Text>
+      <Text style={styles.designation}>{item.designation}</Text>
+      <Text style={styles.salary}>Salary: {item.salary}</Text>
+      <View style={styles.icons}>
+        <Pressable onPress={() => handleUpdateEmployee(item)}>
+          <AntDesign name="edit" size={20} color="blue" />
+        </Pressable>
+        <Pressable onPress={() => handleDeleteEmployee(item.employeeId)}>
+          <AntDesign name="delete" size={20} color="red" />
+        </Pressable>
+      </View>
     </View>
+  );
+
+  return (
+    <FlatList
+      data={data.filter(
+        (item) =>
+          item.employeeName.toLowerCase().includes(input.toLowerCase()) ||
+          item.designation.toLowerCase().includes(input.toLowerCase())
+      )}
+      keyExtractor={(item) => item.employeeId.toString()}
+      renderItem={renderEmployee}
+    />
   );
 };
 
-export default SearchResults;
+const styles = StyleSheet.create({
+  employee: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: "gray",
+  },
+  name: {
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  designation: {
+    fontSize: 14,
+    color: "gray",
+  },
+  salary: {
+    fontSize: 14,
+    color: "gray",
+  },
+  icons: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: 50,
+  },
+});
 
-const styles = StyleSheet.create({});
+export default SearchResults;
