@@ -39,6 +39,7 @@ const AddDetails = () => {
       );
 
       const { message, employee } = response.data;
+      Alert.alert("Success", "Employee added successfully");
       console.log(message);
       console.log(employee);
       // Reset the form

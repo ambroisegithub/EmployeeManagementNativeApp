@@ -8,11 +8,17 @@ const SearchResults = ({
   handleDeleteEmployee,
   handleUpdateEmployee,
 }) => {
+
   const renderEmployee = ({ item }) => (
     <View style={styles.employee}>
       <Text style={styles.name}>{item.employeeName}</Text>
       <Text style={styles.designation}>{item.designation}</Text>
       <Text style={styles.salary}>Salary: {item.salary}</Text>
+      <Text style={styles.name}>{item.joiningDate}</Text>
+      <Text style={styles.dateOfBirth}>{item.dateOfBirth}</Text>
+      <Text style={styles.phoneNumber}>{item.phoneNumber}</Text>
+      <Text style={styles.address}>{item.address}</Text>
+
       <View style={styles.icons}>
         <Pressable onPress={() => handleUpdateEmployee(item)}>
           <AntDesign name="edit" size={20} color="blue" />
@@ -40,7 +46,7 @@ const SearchResults = ({
 const styles = StyleSheet.create({
   employee: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "center",
     padding: 20,

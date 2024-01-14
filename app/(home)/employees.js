@@ -6,7 +6,7 @@ import {
   TextInput,
   Modal,
   Button,
-  Alert,
+  Alert, // Import Alert
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -19,23 +19,35 @@ const Employees = () => {
   const [employees, setEmployees] = useState([]);
   const [input, setInput] = useState("");
   const [updateModalVisible, setUpdateModalVisible] = useState(false);
-  const [updateEmployee, setUpdateEmployee] = useState({});
+  const [updateEmployee, setUpdateEmployee] = useState({
+    employeeId: "",
+    employeeName: "",
+    designation: "",
+    joiningDate: "",
+    dateOfBirth: "",
+    activeEmployee: false, // Assuming activeEmployee is a boolean
+    salary: "",
+    phoneNumber: "",
+    address: "",
+  });
 
   const router = useRouter();
 
+  // Move fetchEmployeeData outside useEffect
+  const fetchEmployeeData = async () => {
+    try {
+      const response = await axios.get(
+        "https://nativeemployeeapp.onrender.com/employees"
+      );
+      setEmployees(response.data);
+    } catch (error) {
+      console.log("error fetching employee data", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchEmployeeData = async () => {
-      try {
-        const response = await axios.get(
-          "https://nativeemployeeapp.onrender.com/employees"
-        );
-        setEmployees(response.data);
-      } catch (error) {
-        console.log("error fetching employee data", error);
-      }
-    };
     fetchEmployeeData();
-  }, []);
+  }, []); // Empty dependency array means it will run only once when the component mounts
 
   const handleDeleteEmployee = async (id) => {
     try {
@@ -43,10 +55,10 @@ const Employees = () => {
         `https://nativeemployeeapp.onrender.com/deleteEmployee/${id}`
       );
       console.log(response.data.message);
-      // Fetch employee data again to update the list
       fetchEmployeeData();
+      Alert.alert("Success", "Employee deleted successfully");
     } catch (error) {
-      console.log("ErrorError deleting employee", error);
+      console.log("Error deleting employee", error);
     }
   };
 
@@ -57,17 +69,14 @@ const Employees = () => {
 
   const handleUpdate = async () => {
     try {
-      // Implement the logic to update the employee details
-      // You can make a PUT request to the updateEmployee endpoint
       const response = await axios.put(
         `https://nativeemployeeapp.onrender.com/updateEmployee/${updateEmployee.employeeId}`,
         updateEmployee
       );
       console.log(response.data.message);
-      // Close the update modal
       setUpdateModalVisible(false);
-      // Fetch employee data again to update the list
       fetchEmployeeData();
+      Alert.alert("Success", "Employee updated successfully");
     } catch (error) {
       console.log("Error updating employee", error);
     }
@@ -171,10 +180,43 @@ const Employees = () => {
                 setUpdateEmployee({ ...updateEmployee, designation: text })
               }
               style={styles.input}
-              placeholder="Enteremployee designation"
+              placeholder="Enter employee designation"
+            />
+            {/* Add the following fields for other data */}
+            <TextInput
+              value={updateEmployee.joiningDate}
+              onChangeText={(text) =>
+                setUpdateEmployee({ ...updateEmployee, joiningDate: text })
+              }
+              style={styles.input}
+              placeholder="Enter joining date"
             />
             <TextInput
-              value={updateEmployee.salary}
+              value={updateEmployee.dateOfBirth}
+              onChangeText={(text) =>
+                setUpdateEmployee({ ...updateEmployee, dateOfBirth: text })
+              }
+              style={styles.input}
+              placeholder="Enter date of birth"
+            />
+            <TextInput
+              value={updateEmployee.address}
+              onChangeText={(text) =>
+                setUpdateEmployee({ ...updateEmployee, address: text })
+              }
+              style={styles.input}
+              placeholder="Address"
+            />
+            <TextInput
+              value={updateEmployee.phoneNumber}
+              onChangeText={(text) =>
+                setUpdateEmployee({ ...updateEmployee, phoneNumber: text })
+              }
+              style={styles.input}
+              placeholder="phone number"
+            />
+            <TextInput
+              value={updateEmployee.salary.toString()} // Convert to string
               onChangeText={(text) =>
                 setUpdateEmployee({ ...updateEmployee, salary: text })
               }
