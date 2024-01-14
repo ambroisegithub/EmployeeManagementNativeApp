@@ -128,7 +128,7 @@ const index = () => {
                   flex: 1,
                 }}
               >
-                Attendance Report
+                Paying Salary To Employee
               </Text>
               <View
                 style={{

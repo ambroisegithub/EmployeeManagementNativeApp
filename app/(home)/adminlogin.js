@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Pressable, StyleSheet, Alert } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Pressable,
+  StyleSheet,
+  Alert,
+} from "react-native";
 import axios from "axios";
 import { useRouter } from "expo-router";
 
@@ -25,12 +32,16 @@ const AdminLogin = () => {
       }
     } catch (error) {
       console.log("error logging in admin", error);
-      Alert.alert("Login Failed", "Incorrect username or password. Please try again.");
+      Alert.alert(
+        "Login Failed",
+        "Incorrect username or password. Please try again."
+      );
     }
   };
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Employee Management System</Text>
       <Text style={styles.title}>Admin Login</Text>
       <TextInput
         style={styles.input}
