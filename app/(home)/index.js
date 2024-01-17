@@ -98,6 +98,7 @@ const index = () => {
             }}
           >
             <Pressable
+              onPress={() => router.push("/(home)/employeeSalary")}
               style={{
                 backgroundColor: "#BE93C5",
                 borderRadius: 6,
@@ -190,7 +191,9 @@ const index = () => {
                 <Entypo name="chevron-right" size={24} color="black" />
               </View>
             </Pressable>
+            
             <Pressable
+              onPress={() => router.push("/(home)/SalaryPaidEmployees")}
               style={{
                 backgroundColor: "#BE93C5",
                 borderRadius: 6,
@@ -221,7 +224,7 @@ const index = () => {
                   flex: 1,
                 }}
               >
-                All Generate Reports
+                All Monthly Paid Salary Report
               </Text>
               <View
                 style={{

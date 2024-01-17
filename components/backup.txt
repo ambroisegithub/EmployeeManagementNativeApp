@@ -176,3 +176,265 @@ export default employees;
 
 const styles = StyleSheet.create({});
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  Modal,
+  TextInput,
+  Button,
+  Alert,
+  StyleSheet,
+} from "react-native";
+import axios from "axios";
+
+const EmployeeSalary = () => {
+  const [employees, setEmployees] = useState([]);
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const [salaryAmount, setSalaryAmount] = useState("");
+  const [isPaymentModalVisible, setIsPaymentModalVisible] = useState(false);
+
+//   useEffect(() => {
+//     // Fetch all employees
+//     const fetchEmployees = async () => {
+//       try {
+//         const response = await axios.get(
+//           "https://nativeemployeeapp.onrender.com/employees"
+//         );
+//         setEmployees(response.data);
+//       } catch (error) {
+//         console.log("Error fetching employee data", error);
+//       }
+//     };
+
+//     fetchEmployees();
+//   }, []);
+
+  // Fetch employees with pending status
+  const fetchPendingEmployees = async () => {
+    try {
+      const response = await axios.get(
+        "https://nativeemployeeapp.onrender.com/employees/pending"
+      );
+      setEmployees(response.data);
+    } catch (error) {
+      console.log("Error fetching pending employee data", error);
+    }
+  };
+
+  const handlePayButtonPress = (employee) => {
+    setSelectedEmployee(employee);
+    setIsPaymentModalVisible(true);
+  };
+
+  const handleConfirmPayment = async () => {
+    try {
+      const response = await axios.post(
+        "https://nativeemployeeapp.onrender.com/salaryPayment",
+        {
+          employeeId: selectedEmployee.employeeId,
+          month: new Date().getMonth() + 1,
+          year: new Date().getFullYear(),
+          amount: parseFloat(salaryAmount),
+          paymentDate: new Date(),
+        }
+      );
+
+      console.log(response.data.message);
+
+      // Update the status to "paid" after successful payment
+      const updatedEmployees = employees.map((employee) =>
+        employee.employeeId === selectedEmployee.employeeId
+          ? { ...employee, status: "paid" }
+          : employee
+      );
+
+      setEmployees(updatedEmployees);
+
+      setIsPaymentModalVisible(false);
+      setSalaryAmount("");
+      Alert.alert("Success", "Salary payment successful");
+    } catch (error) {
+      console.log("Error paying salary", error);
+      Alert.alert("Error", "Failed to pay salary");
+    }
+  };
+
+  return (
+    <View>
+      <View>
+      <Text>
+        <Button
+          title="Fetch Pending Employees"
+          onPress={fetchPendingEmployees}
+        />
+      </Text>{" "}
+      </View>
+
+      {/* Display Employee Data */}
+      {employees.map((employee) => (
+        <View key={employee.employeeId}>
+          <Text>{employee.employeeName}</Text>
+          <Text>Salary: ${employee.salary}</Text>
+          <Text>Status: {employee.status}</Text> {/* Display status */}
+          <Button
+            title="Pay Salary"
+            onPress={() => handlePayButtonPress(employee)}
+          />
+        </View>
+      ))}
+      {/* Salary Payment Modal */}
+      <Modal
+        visible={isPaymentModalVisible}
+        animationType="slide"
+        transparent={true}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Pay Salary</Text>
+            <TextInput
+              value={salaryAmount}
+              onChangeText={(text) => setSalaryAmount(text)}
+              style={styles.input}
+              placeholder="Enter salary amount"
+              keyboardType="numeric"
+            />
+            <Button title="Confirm Payment" onPress={handleConfirmPayment} />
+            <Button
+              title="Cancel"
+              onPress={() => setIsPaymentModalVisible(false)}
+            />
+          </View>
+        </View>
+      </Modal>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    backgroundColor: "white",
+    padding: 20,
+    borderRadius: 5,
+    elevation: 5,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "gray",
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10,
+  },
+});
+
+export default EmployeeSalary;
+
+
+
+
+  const handleConfirmPayment = async () => {
+    try {
+      const response = await axios.post(
+        "https://nativeemployeeapp.onrender.com/salaryPayment",
+        {
+          employeeId: selectedEmployee.employeeId,
+          month: new Date().getMonth() + 1,
+          year: new Date().getFullYear(),
+          amount: parseFloat(salaryAmount),
+          paymentDate: new Date().toDateString(),
+          status: "paid",
+        }
+      );
+
+      console.log(response.data.message);
+
+      // Update the status to "paid" after successful payment
+      setEmployees((prevEmployees) =>
+        prevEmployees.map((employee) =>
+          employee.employeeId === selectedEmployee.employeeId
+            ? { ...employee, status: "paid" }
+            : employee
+        )
+      );
+
+      setIsPaymentModalVisible(false);
+      setSalaryAmount("");
+      Alert.alert("Success", "Salary payment successful");
+    } catch (error) {
+      console.log("Error paying salary", error);
+      Alert.alert("Error", "Failed to pay salary");
+    }
+  };
+
+
+
+
+
+      <Modal
+        visible={isPaymentModalVisible}
+        animationType="slide"
+        transparent={true}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Pay Salary</Text>
+            <TextInput
+              value={salaryAmount}
+              onChangeText={(text) => setSalaryAmount(text)}
+              style={styles.input}
+              placeholder="Enter salary amount"
+              keyboardType="numeric"
+            />
+            <TextInput
+              value={(new Date().getMonth() + 1).toString()}
+              editable={true}
+              style={styles.input}
+            />
+            <TextInput
+              value={new Date().getFullYear().toString()}
+              editable={true}
+              style={styles.input}
+            />
+            <TextInput
+              value={new Date().toDateString()}
+              editable={true}
+              style={styles.input}
+            />
+            <TextInput value="paid" editable={true} style={styles.input} />
+            <Button title="Confirm Payment" onPress={handleConfirmPayment} />
+            <Button
+              title="Cancel"
+              onPress={() => setIsPaymentModalVisible(false)}
+            />
+          </View>
+        </View>
+      </Modal>
