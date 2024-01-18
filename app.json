@@ -21,7 +21,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.muhayimana_ambroise123.employeeyt"
     },
     "scheme": "employee-yt",
     "web": {
@@ -29,6 +30,14 @@
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "e897f8f5-ceee-4539-bfb3-8337bfba119a"
+      }
+    }
   }
 }

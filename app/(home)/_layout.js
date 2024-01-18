@@ -11,6 +11,10 @@ export default function Layout() {
       <Stack.Screen name="summary" />
       <Stack.Screen name="employeeSalary" />
       <Stack.Screen name="SalaryPaidEmployees" />
+      <Stack.Screen name="FullTimeListEmployee" />
+      <Stack.Screen name="overtimeemployeelist" />
+      <Stack.Screen name="parttimeemployeelist" />
+      <Stack.Screen name="workflow" />
 
       
     </Stack>

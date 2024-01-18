@@ -69,9 +69,9 @@ const Performance = () => {
         width={screenWidth}
         height={220}
         chartConfig={chartConfig}
-        accessor="performanceScore" // Corrected accessor property
-        backgroundColor="transparent"
-        paddingLeft="15"
+        accessor={"performanceScore"}
+        backgroundColor={"transparent"}
+        paddingLeft={"15"}
         center={[10, 50]}
         absolute
       />

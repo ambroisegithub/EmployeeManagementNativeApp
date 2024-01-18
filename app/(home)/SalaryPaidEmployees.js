@@ -57,28 +57,26 @@ const SalaryPaidEmployees = () => {
         <FlatList
           data={employees}
           renderItem={({ item }) => (
-            <Pressable>
-              <View style={styles.employeeItem}>
-                <Text style={styles.employeeName}>
-                  Employee Id: {item.employeeId}
-                </Text>
-                <Text style={styles.employeeName}>
-                  Names: {item.employeeName}
-                </Text>
-                <Text style={styles.employeeName}>
-                  Designation: {item.designation}
-                </Text>
-                <Text style={styles.employeeName}>Salary: {item.salary}</Text>
-                <Text style={styles.employeeName}>Status: {item.status}</Text>
-                <Text style={styles.employeeName}>
-                  Phone Number: {item.phoneNumber}
-                </Text>
-                <Button
-                  title="Delete"
-                  onPress={() => handleDelete(item.employeeId)}
-                />
-              </View>
-            </Pressable>
+            <View style={styles.employeeItem}>
+              <Text style={styles.employeeName}>
+                Employee Id: {item.employeeId}
+              </Text>
+              <Text style={styles.employeeName}>
+                Names: {item.employeeName}
+              </Text>
+              <Text style={styles.employeeName}>
+                Designation: {item.designation}
+              </Text>
+              <Text style={styles.employeeName}>Salary: {item.salary}</Text>
+              <Text style={styles.employeeName}>Status: {item.status}</Text>
+              <Text style={styles.employeeName}>
+                Phone Number: {item.phoneNumber}
+              </Text>
+              <Button
+                title="Delete"
+                onPress={() => handleDelete(item.employeeId)}
+              />
+            </View>
           )}
           keyExtractor={(item) => item._id}
         />
