@@ -83,7 +83,12 @@ const Employees = () => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: "white",
+      }}
+    >
       <View
         style={{
           flexDirection: "row",
@@ -101,7 +106,7 @@ const Employees = () => {
         <Pressable
           style={{
             flexDirection: "row",
-            alignItems: "center",
+            // alignItems: "center",
             marginHorizontal: 7,
             gap: 10,
             backgroundColor: "white",
@@ -224,11 +229,18 @@ const Employees = () => {
               placeholder="Enter employee salary"
               keyboardType="numeric"
             />
-            <Button title="Update" onPress={handleUpdate} />
-            <Button
-              title="Cancel"
-              onPress={() => setUpdateModalVisible(false)}
-            />
+        <Pressable
+        onPress={handleUpdate}
+        style={[styles.button, { backgroundColor: "black" }]}
+      >
+        <Text style={styles.buttonText}>Update</Text>
+      </Pressable>
+      <Pressable
+        onPress={() => setUpdateModalVisible(false)}
+        style={styles.button}
+      >
+        <Text style={styles.buttonText}>Cancel</Text>
+      </Pressable>
           </View>
         </View>
       </Modal>
@@ -260,6 +272,17 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     marginBottom: 10,
+  },
+  button: {
+    backgroundColor: "blue", // Change the background color as needed
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  buttonText: {
+    color: "white", // Change the text color as needed
+    textAlign: "center",
+    fontWeight: "bold",
   },
 });
 

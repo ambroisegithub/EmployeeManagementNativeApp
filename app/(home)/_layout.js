@@ -15,8 +15,7 @@ export default function Layout() {
       <Stack.Screen name="overtimeemployeelist" />
       <Stack.Screen name="parttimeemployeelist" />
       <Stack.Screen name="workflow" />
-
-      
+      <Stack.Screen name="Performance" />
     </Stack>
   );
 }

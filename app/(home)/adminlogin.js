@@ -14,6 +14,7 @@ const AdminLogin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const [buttonPressed, setButtonPressed] = useState(false);
 
   const handleLogin = async () => {
     try {
@@ -41,24 +42,46 @@ const AdminLogin = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Employee Management System</Text>
-      <Text style={styles.title}>Admin Login</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Username"
-        value={username}
-        onChangeText={(text) => setUsername(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        secureTextEntry
-        value={password}
-        onChangeText={(text) => setPassword(text)}
-      />
-      <Pressable style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Login</Text>
-      </Pressable>
+      <View
+        style={{
+          width: 360,
+          height: 500,
+          borderRadius: 25,
+          backgroundColor: "darkblue",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: 10,
+        }}
+      >
+        <Text style={styles.title}>Employee Management System</Text>
+        <Text style={styles.subtitle}>Admin Login</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Username"
+          value={username}
+          onChangeText={(text) => setUsername(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          secureTextEntry
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+        />
+        <Pressable
+          style={({ pressed }) => [
+            styles.button,
+            {
+              backgroundColor: pressed ? "#0056b3" : "black",
+            },
+          ]}
+          onPress={handleLogin}
+          onPressIn={() => setButtonPressed(true)}
+          onPressOut={() => setButtonPressed(false)}
+        >
+          <Text style={styles.buttonText}>Login</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
@@ -68,28 +91,43 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "white", // Light background color
+    paddingRight: 10,
+    paddingLeft: 10,
   },
   title: {
-    fontSize: 20,
+    fontSize: 23,
     fontWeight: "bold",
+    marginBottom: 10,
+    color: "white", // Darker text color
+  },
+  subtitle: {
+    fontSize: 18,
     marginBottom: 20,
+    color: "white", // Slightly darker text color
   },
   input: {
     borderWidth: 1,
     borderColor: "#ccc",
-    borderRadius: 6,
-    padding: 10,
-    marginBottom: 15,
-    width: 250,
+    borderRadius: 8,
+    padding: 14,
+    marginBottom: 20,
+    width: 300,
+    backgroundColor: "#fff", // White background for input
   },
   button: {
     backgroundColor: "#007BFF",
-    borderRadius: 6,
-    padding: 10,
+    borderRadius: 8,
+    padding: 14,
+    width: 300,
+    alignItems: "center",
+    justifyContent: "center",
+    color: "black",
   },
   buttonText: {
     color: "white",
-    textAlign: "center",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
 

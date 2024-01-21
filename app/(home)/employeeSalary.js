@@ -71,10 +71,10 @@ const EmployeeSalary = () => {
     }
   };
   return (
-    <View>
+    <View style={styles.container}>
       {/* Display Employee Data */}
       {employees.map((employee) => (
-        <View key={employee.employeeId}>
+        <View key={employee.employeeId} style={styles.container2}>
           <Text>{employee.employeeName}</Text>
           <Text>Salary: ${employee.salary}</Text>
           <Text>Status: {employee.status}</Text>
@@ -155,6 +155,19 @@ const EmployeeSalary = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    padding: 15,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    marginBottom: 10,
+  },
+  container2: {
+    color: "white",
+    backgroundColor: "white",
+    paddingBottom: 5,
+    paddingRight: 10,
+    paddingLeft: 10,
+    height: "auto",
+  },
   modalContainer: {
     flex: 1,
     justifyContent: "center",

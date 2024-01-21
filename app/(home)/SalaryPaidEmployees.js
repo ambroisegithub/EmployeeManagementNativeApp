@@ -107,7 +107,6 @@ const styles = StyleSheet.create({
   deleteButton: {
     color: "#f00",
   },
-  // Add more styles as needed
 });
 
 export default SalaryPaidEmployees;

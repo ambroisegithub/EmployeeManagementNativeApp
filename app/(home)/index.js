@@ -1,85 +1,465 @@
+import { StyleSheet, Text, View, ScrollView, Pressable } from "react-native";
 import React from "react";
-import { Text, View, Dimensions } from "react-native";
-import { PieChart } from "react-native-chart-kit";
-
-const Performance = () => {
-  const screenWidth = Dimensions.get("window").width;
-
-  const data = [
-    {
-      employeeName: "John Doe",
-      performanceScore: 85,
-      color: "rgba(131, 167, 234, 1)",
-      legendFontColor: "#7F7F7F",
-      legendFontSize: 15
-    },
-    {
-      employeeName: "Jane Smith",
-      performanceScore: 92,
-      color: "#F00",
-      legendFontColor: "#7F7F7F",
-      legendFontSize: 15
-    },
-    {
-      employeeName: "Bob Johnson",
-      performanceScore: 78,
-      color: "red",
-      legendFontColor: "#7F7F7F",
-      legendFontSize: 15
-    },
-    {
-      employeeName: "Alice Brown",
-      performanceScore: 95,
-      color: "#ffffff",
-      legendFontColor: "#7F7F7F",
-      legendFontSize: 15
-    },
-    {
-      employeeName: "Mike Williams",
-      performanceScore: 88,
-      color: "rgb(0, 0, 255)",
-      legendFontColor: "#7F7F7F",
-      legendFontSize: 15
-    }
-  ];
-
-  const chartConfig = {
-    backgroundColor: "transparent",
-    backgroundGradientFrom: "#fff",
-    backgroundGradientTo: "#fff",
-    color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-    labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-    style: {
-      borderRadius: 16
-    },
-    propsForDots: {
-      r: "6",
-      strokeWidth: "2",
-      stroke: "#ffa726"
-    }
-  };
-
+import { LinearGradient } from "expo-linear-gradient";
+import { Feather, Entypo, Ionicons, Octicons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+// import { Octicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+// import { Ionicons } from '@expo/vector-icons';
+{
+  /* <Ionicons name="people-circle" size={24} color="black" /> */
+}
+const index = () => {
+  const router = useRouter();
   return (
-    <View>
-      <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 10 }}>
-        Employee Performance Chart
-      </Text>
-      <PieChart
-        data={data}
-        width={screenWidth}
-        height={220}
-        chartConfig={chartConfig}
-        accessor="performanceScore" // Corrected accessor property
-        backgroundColor="transparent"
-        paddingLeft="15"
-        center={[10, 50]}
-        absolute
-      />
-      <Text style={{ marginTop: 10, fontSize: 16 }}>
-        This pie chart represents the distribution of employee performance scores.
-      </Text>
-    </View>
+    <ScrollView>
+      <LinearGradient colors={["darkblue", "#E9E4F0"]} style={{ flex: 1 }}>
+        <View style={{ padding: 12 }}>
+          <View
+            style={{
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text
+              style={{
+                color: "white",
+                fontSize: 27,
+                fontWeight: "900",
+
+                margin: 20,
+              }}
+            >
+              EMPS
+            </Text>
+            <Text
+              style={{
+                fontSize: 23,
+                color: "white",
+                fontWeight: "900",
+
+                margin: 5,
+              }}
+            >
+              Employee Managament System
+            </Text>
+          </View>
+
+          <View
+            style={{
+              marginTop: 20,
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 20,
+            }}
+          >
+            <Pressable
+              onPress={() => router.push("/(home)/employees")}
+              style={{
+                backgroundColor: "white",
+                padding: 12,
+                borderRadius: 6,
+                alignItems: "center",
+                justifyContent: "center",
+                display: "flex",
+                gap: 10,
+                flexDirection: "row",
+                flexWrap: "nowrap",
+                width: 370,
+                height: 100,
+              }}
+            >
+              <View
+                style={{
+                  width: 50,
+                  height: 50,
+                  borderRadius: 25,
+                  backgroundColor: "",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Ionicons name="people-sharp" size={24} color="black" />
+              </View>
+              <Text style={{ marginTop: 7, fontWeight: "600" }}>
+                All Registered Employee
+              </Text>
+            </Pressable>
+            <Pressable
+              onPress={() => router.push("/(home)/markattendance")}
+              style={{
+                backgroundColor: "white",
+                padding: 12,
+                borderRadius: 6,
+                alignItems: "center",
+                justifyContent: "center",
+                display: "flex",
+                flexDirection: "row",
+                flexWrap: "nowrap",
+                gap: 10,
+                width: 370,
+                height: 100,
+              }}
+            >
+              <View
+                style={{
+                  width: 50,
+                  height: 50,
+                  borderRadius: 25,
+                  backgroundColor: "white",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Ionicons name="bookmark" size={24} color="black" />
+              </View>
+              <Text style={{ marginTop: 7, fontWeight: "600" }}>
+                Record Employee Attendance
+              </Text>
+            </Pressable>
+          </View>
+          <View
+            style={{
+              marginTop: 20,
+              paddingHorizontal: 10,
+              paddingVertical: 10,
+              borderRadius: 7,
+            }}
+          >
+            <Pressable
+              onPress={() => router.push("/(home)/employeeSalary")}
+              style={{
+                backgroundColor: "white",
+                borderRadius: 6,
+                padding: 10,
+                flexDirection: "row",
+                alignItems: "center",
+                marginVertical: 10,
+              }}
+            >
+              <View
+                style={{
+                  padding: 7,
+                  width: 45,
+                  height: 45,
+                  borderRadius: 7,
+                  // backgroundColor: "white",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Ionicons name="newspaper-outline" size={24} color="black" />
+              </View>
+              <Text
+                style={{
+                  marginLeft: 10,
+                  fontSize: 16,
+                  fontWeight: "600",
+                  flex: 1,
+                }}
+              >
+                Paying Salary To Employee
+              </Text>
+              <View
+                style={{
+                  width: 35,
+                  height: 35,
+                  borderRadius: 7,
+                  // backgroundColor: "white",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Entypo name="chevron-right" size={24} color="black" />
+              </View>
+            </Pressable>
+            <Pressable
+              onPress={() => router.push("/(home)/summary")}
+              style={{
+                backgroundColor: "white",
+                borderRadius: 6,
+                padding: 10,
+                flexDirection: "row",
+                alignItems: "center",
+                marginVertical: 10,
+              }}
+            >
+              <View
+                style={{
+                  padding: 7,
+                  width: 45,
+                  height: 45,
+                  borderRadius: 7,
+                  // backgroundColor: "white",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Octicons name="report" size={24} color="black" />
+              </View>
+              <Text
+                style={{
+                  marginLeft: 10,
+                  fontSize: 16,
+                  fontWeight: "600",
+                  flex: 1,
+                }}
+              >
+                Attendence Report
+              </Text>
+              <View
+                style={{
+                  width: 35,
+                  height: 35,
+                  borderRadius: 7,
+                  // backgroundColor: "white",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Entypo name="chevron-right" size={24} color="black" />
+              </View>
+            </Pressable>
+
+            <Pressable
+              onPress={() => router.push("/(home)/SalaryPaidEmployees")}
+              style={{
+                backgroundColor: "white",
+                borderRadius: 6,
+                padding: 10,
+                flexDirection: "row",
+                alignItems: "center",
+                marginVertical: 10,
+              }}
+            >
+              <View
+                style={{
+                  padding: 7,
+                  width: 45,
+                  height: 45,
+                  borderRadius: 7,
+                  // backgroundColor: "white",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <MaterialIcons name="report-problem" size={24} color="black" />
+              </View>
+              <Text
+                style={{
+                  marginLeft: 10,
+                  fontSize: 16,
+                  fontWeight: "600",
+                  flex: 1,
+                }}
+              >
+                All Monthly Paid Salary Report
+              </Text>
+              <View
+                style={{
+                  width: 35,
+                  height: 35,
+                  borderRadius: 7,
+                  // backgroundColor: "white",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Entypo name="chevron-right" size={24} color="black" />
+              </View>
+            </Pressable>
+            <Pressable
+              onPress={() => router.push("/(home)/FullTimeListEmployee")}
+              style={{
+                backgroundColor: "white",
+                borderRadius: 6,
+                padding: 10,
+                flexDirection: "row",
+                alignItems: "center",
+                marginVertical: 10,
+              }}
+            >
+              <View
+                style={{
+                  padding: 7,
+                  width: 45,
+                  height: 45,
+                  borderRadius: 7,
+                  // backgroundColor: "white",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Ionicons name="people" size={24} color="black" />
+              </View>
+              <Text
+                style={{
+                  marginLeft: 10,
+                  fontSize: 16,
+                  fontWeight: "600",
+                  flex: 1,
+                }}
+              >
+                Full Time Employees
+              </Text>
+              <View
+                style={{
+                  width: 35,
+                  height: 35,
+                  borderRadius: 7,
+                  backgroundColor: "white",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Entypo name="chevron-right" size={24} color="black" />
+              </View>
+            </Pressable>
+          </View>
+          <View
+            style={{
+              marginTop: 20,
+              // display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 12,
+            }}
+          >
+            <Pressable
+              onPress={() => router.push("/(home)/overtimeemployeelist")}
+            >
+              <View
+                style={{
+                  backgroundColor: "white",
+                  borderRadius: 6,
+                  padding: 12,
+                  alignItems: "center",
+
+                  justifyContent: "center",
+                  flex: 1,
+                }}
+              >
+                <View
+                  style={{
+                    width: 35,
+                    height: 35,
+                    borderRadius: 7,
+                    backgroundColor: "white",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: 140,
+                  }}
+                >
+                  <Ionicons name="time" size={24} color="black" />
+                </View>
+                <Text style={{ marginTop: 7 }}>Over time Employees</Text>
+              </View>
+            </Pressable>
+
+            <Pressable onPress={() => router.push("/(home)/workflow")}>
+              <View
+                style={{
+                  backgroundColor: "white",
+                  borderRadius: 6,
+                  padding: 15,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flex: 1,
+                  width: 195,
+                }}
+              >
+                <View
+                  style={{
+                    width: 35,
+                    height: 35,
+                    borderRadius: 7,
+                    backgroundColor: "white",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Octicons name="workflow" size={24} color="black" />
+                </View>
+                <Text style={{ marginTop: 7 }}> Workflow level</Text>
+              </View>
+            </Pressable>
+          </View>
+
+          <Pressable
+            onPress={() => router.push("./(home)/parttimeemployeelist")}
+          >
+            <View
+              style={{
+                marginTop: 20,
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 12,
+              }}
+            >
+              <View
+                style={{
+                  backgroundColor: "white",
+                  borderRadius: 6,
+                  padding: 12,
+                  alignItems: "center",
+
+                  justifyContent: "center",
+                  flex: 1,
+                }}
+              >
+                <View
+                  style={{
+                    width: 35,
+                    height: 35,
+                    borderRadius: 7,
+                    backgroundColor: "white",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Ionicons name="partly-sunny" size={24} color="black" />
+                </View>
+                <Text style={{ marginTop: 7 }}>PartTime Employee</Text>
+              </View>
+            </View>
+          </Pressable>
+        </View>
+        <View>
+          <Pressable onPress={() => "./(home)/Performance"}>
+            <View
+              style={{
+                backgroundColor: "white",
+                borderRadius: 6,
+                padding: 12,
+                alignItems: "center",
+                justifyContent: "center",
+                flex: 1,
+              }}
+            >
+              <View
+                style={{
+                  width: 35,
+                  height: 35,
+                  borderRadius: 7,
+                  backgroundColor: "white",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <AntDesign name="carryout" size={24} color="black" />
+              </View>
+
+              <Text style={{ marginTop: 7 }}>Employee Performance</Text>
+            </View>
+          </Pressable>
+        </View>
+      </LinearGradient>
+    </ScrollView>
   );
 };
 
-export default Performance;
+export default index;
+
+const styles = StyleSheet.create({});
